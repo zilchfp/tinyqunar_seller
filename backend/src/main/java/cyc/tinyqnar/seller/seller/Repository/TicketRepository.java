@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
+
     List<Ticket> findAllByStartAndEnd(String start, String end);
 
     Ticket findById(int id);

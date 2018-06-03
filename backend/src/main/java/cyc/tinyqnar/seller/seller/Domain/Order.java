@@ -1,15 +1,15 @@
 package cyc.tinyqnar.seller.seller.Domain;
 
 
-
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name="tbl_ticket")
+@Table(name="tbl_order")
 @Data
-public class Ticket {
+public class Order {
+
 
     @Id
     @GeneratedValue
@@ -32,9 +32,7 @@ public class Ticket {
     private int time_minute;
 
     @Column
-    private int amount;
-
-
+    private int quantity;
 
 
 }

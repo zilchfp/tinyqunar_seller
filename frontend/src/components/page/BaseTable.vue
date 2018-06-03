@@ -19,8 +19,42 @@
                 <el-table-column type="selection" width="55"></el-table-column>
                 <el-table-column prop="date" label="日期" sortable width="150">
                 </el-table-column>
-                <el-table-column prop="name" label="姓名" width="120">
+                <el-table-column prop="ticket-id" label="" width="120">
                 </el-table-column>
+                <el-table-column prop="" label="" width="120">
+                </el-table-column>
+                <el-table-column prop="" label="" width="120">
+                </el-table-column>
+                <el-table-column prop="" label="" width="120">
+                </el-table-column>
+                <el-table-column prop="" label="" width="120">
+                </el-table-column>
+                <el-table-column prop="" label="" width="120">
+                </el-table-column>
+                <el-table-column prop="" label="" width="120">
+                </el-table-column>
+
+                private int id;
+
+                @Column()
+                private String start;
+
+                @Column
+                private String end;
+
+
+                @Column
+                private String date;
+
+                @Column
+                private int time_hour;
+
+                @Column
+                private int time_minute;
+
+                @Column
+                private int amount;
+
                 <el-table-column prop="address" label="地址" :formatter="formatter">
                 </el-table-column>
                 <el-table-column label="操作" width="180">

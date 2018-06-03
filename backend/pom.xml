@@ -29,11 +29,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <version>5.1.6</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -51,7 +55,14 @@
         </dependency>
 
 
-        <!--解决冲突 -->
+        <!--lombok依赖-->
+         <!--https://mvnrepository.com/artifact/org.projectlombok/lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.10</version>
+        </dependency>
+
 
     </dependencies>
 
