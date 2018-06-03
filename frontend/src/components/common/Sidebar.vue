@@ -38,50 +38,18 @@
                     {
                         icon: 'el-icon-tickets',
                         index: 'table',
-                        title: '订单查询'
+                        title: '订单管理'
                     },
-                    // {
-                    //     icon: 'el-icon-message',
-                    //     index: 'tabs',
-                    //     title: 'tab选项卡'
-                    // },
                     {
                         icon: 'el-icon-date',
-                        index: '3',
-                        title: '机票相关',
-                        subs: [
-                            {
-                                index: 'form',
-                                title: '机票查询'
-                            },
-                            {
-                                index: 'form',
-                                title: '添加机票'
-                            },
-                            // {
-                            //     index: 'editor',
-                            //     title: '富文本编辑器'
-                            // },
-                            // {
-                            //     index: 'markdown',
-                            //     title: 'markdown编辑器'
-                            // },
-                            // {
-                            //     index: 'upload',
-                            //     title: '文件上传'
-                            // }
-                        ]
+                        index: 'ticket',
+                        title: '机票管理',
                     },
                     {
                         icon: 'el-icon-star-on',
                         index: 'charts',
                         title: '票务统计'
                     },
-                    // {
-                    //     icon: 'el-icon-rank',
-                    //     index: 'drag',
-                    //     title: '拖拽列表'
-                    // },
                     {
                         icon: 'el-icon-warning',
                         index: 'permission',

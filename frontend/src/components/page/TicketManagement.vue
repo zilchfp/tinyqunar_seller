@@ -2,7 +2,7 @@
     <div class="table">
         <div class="crumbs">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item><i class="el-icon-tickets"></i> 订单管理</el-breadcrumb-item>
+                <el-breadcrumb-item><i class="el-icon-tickets"></i> 机票管理</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="container">

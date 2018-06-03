@@ -26,4 +26,6 @@ public class TicketService {
         return ticketRepository.findAllByAmountGreaterThan(0);
     }
 
+
+
 }

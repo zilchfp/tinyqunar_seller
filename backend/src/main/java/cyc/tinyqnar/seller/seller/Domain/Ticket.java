@@ -5,6 +5,7 @@ package cyc.tinyqnar.seller.seller.Domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Time;
 
 @Entity
 @Table(name="tbl_ticket")
@@ -12,7 +13,7 @@ import javax.persistence.*;
 public class Ticket {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column()
@@ -37,68 +38,7 @@ public class Ticket {
     @Column
     private int amount;
 
+    @Column
+    private Time start_time;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getStart() {
-        return start;
-    }
-
-    public void setStart(String start) {
-        this.start = start;
-    }
-
-    public String getEnd() {
-        return end;
-    }
-
-    public void setEnd(String end) {
-        this.end = end;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public int getTime_hour() {
-        return time_hour;
-    }
-
-    public void setTime_hour(int time_hour) {
-        this.time_hour = time_hour;
-    }
-
-    public int getTime_minute() {
-        return time_minute;
-    }
-
-    public void setTime_minute(int time_minute) {
-        this.time_minute = time_minute;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 }

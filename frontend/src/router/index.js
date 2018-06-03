@@ -21,8 +21,8 @@ export default new Router({
                 },
                 {
                     path: '/table',
-                    component: resolve => require(['../components/page/BaseTable.vue'], resolve),
-                    meta: { title: '订单查询' }
+                    component: resolve => require(['../components/page/OrderManagement.vue'], resolve),
+                    meta: { title: '订单管理' }
                 },
                 {
                     path: '/tabs',
@@ -30,40 +30,21 @@ export default new Router({
                     meta: { title: 'tab选项卡' }
                 },
                 {
+                    path: '/ticket',
+                    component: resolve => require(['../components/page/TicketManagement.vue'], resolve),
+                    meta: { title: '机票管理' }
+                },
+                {
                     path: '/form',
-                    component: resolve => require(['../components/page/BaseForm.vue'], resolve),
+                    component: resolve => require(['../components/page/BaseTable.vue'], resolve),
                     meta: { title: '机票查询' }
                 },
-                // {
-                //     // 富文本编辑器组件
-                //     path: '/editor',
-                //     component: resolve => require(['../components/page/VueEditor.vue'], resolve),
-                //     meta: { title: '富文本编辑器' }
-                // },
-                // {
-                //     // markdown组件
-                //     path: '/markdown',
-                //     component: resolve => require(['../components/page/Markdown.vue'], resolve),
-                //     meta: { title: 'markdown编辑器' }
-                // },
-                // {
-                //     // 图片上传组件
-                //     path: '/upload',
-                //     component: resolve => require(['../components/page/Upload.vue'], resolve),
-                //     meta: { title: '文件上传' }
-                // },
                 {
                     // vue-schart组件
                     path: '/charts',
                     component: resolve => require(['../components/page/BaseCharts.vue'], resolve),
                     meta: { title: '票务统计' }
                 },
-                // {
-                //     // 拖拽列表组件
-                //     path: '/drag',
-                //     component: resolve => require(['../components/page/DragList.vue'], resolve),
-                //     meta: { title: '拖拽列表' }
-                // },
                 {
                     // 权限页面
                     path: '/permission',

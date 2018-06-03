@@ -3,6 +3,7 @@ package cyc.tinyqnar.seller.seller.Repository;
 import cyc.tinyqnar.seller.seller.Domain.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,9 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     List<Ticket> findAllByAmountGreaterThan(int lowerBound);
 
+
+    @Transactional
+    int deleteById(int id);
 
 //    @Query("from User u where u.name=:name")
 //    User findUser(@Param("name") String name);

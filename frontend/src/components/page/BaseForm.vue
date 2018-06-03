@@ -2,8 +2,8 @@
     <div>
         <div class="crumbs">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item><i class="el-icon-date"></i> 机票相关</el-breadcrumb-item>
-                <el-breadcrumb-item>机票查询</el-breadcrumb-item>
+                <el-breadcrumb-item><i class="el-icon-date"></i> 机票管理</el-breadcrumb-item>
+                <el-breadcrumb-item>机票管理</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="container">
