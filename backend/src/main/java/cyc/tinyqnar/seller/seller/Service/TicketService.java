@@ -22,5 +22,8 @@ public class TicketService {
         return ticketRepository.findById(id);
     }
 
+    public List<Ticket> findRestTickets() {
+        return ticketRepository.findAllByAmountGreaterThan(0);
+    }
 
 }

@@ -14,6 +14,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     Ticket findById(int id);
 
+    List<Ticket> findAllByAmountGreaterThan(int lowerBound);
+
 
 //    @Query("from User u where u.name=:name")
 //    User findUser(@Param("name") String name);

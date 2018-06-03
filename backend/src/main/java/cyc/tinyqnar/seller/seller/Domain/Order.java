@@ -16,23 +16,12 @@ public class Order {
     private int id;
 
     @Column()
-    private String start;
-
-    @Column
-    private String end;
+    @JoinColumn(name = "id", nullable = false)
+    private int ticket_id;
 
 
-    @Column
-    private String date;
 
-    @Column
-    private int time_hour;
-
-    @Column
-    private int time_minute;
-
-    @Column
-    private int quantity;
-
+    @Column()
+    private String deal_date;
 
 }

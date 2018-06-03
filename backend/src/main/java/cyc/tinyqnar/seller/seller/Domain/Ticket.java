@@ -32,6 +32,9 @@ public class Ticket {
     private int time_minute;
 
     @Column
+    private double price;
+
+    @Column
     private int amount;
 
 

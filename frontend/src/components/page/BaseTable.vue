@@ -19,44 +19,22 @@
                 <el-table-column type="selection" width="55"></el-table-column>
                 <el-table-column prop="date" label="日期" sortable width="150">
                 </el-table-column>
-                <el-table-column prop="ticket-id" label="" width="120">
+                <el-table-column prop="ticket_id" label="机票ID" width="120">
                 </el-table-column>
-                <el-table-column prop="" label="" width="120">
+                <el-table-column prop="ticket_start" label="起始时间" width="120">
                 </el-table-column>
-                <el-table-column prop="" label="" width="120">
+                <el-table-column prop="ticket_end" label="到达时间" width="120">
                 </el-table-column>
-                <el-table-column prop="" label="" width="120">
+                <el-table-column prop="ticket_date" label="日期" width="120">
                 </el-table-column>
-                <el-table-column prop="" label="" width="120">
+                <el-table-column prop="ticket_time_hour" label="小时" width="120">
                 </el-table-column>
-                <el-table-column prop="" label="" width="120">
+                <el-table-column prop="ticket_time_minute" label="分钟" width="120">
                 </el-table-column>
-                <el-table-column prop="" label="" width="120">
+                <el-table-column prop="ticket_amount" label="余量" width="120">
                 </el-table-column>
-
-                private int id;
-
-                @Column()
-                private String start;
-
-                @Column
-                private String end;
-
-
-                @Column
-                private String date;
-
-                @Column
-                private int time_hour;
-
-                @Column
-                private int time_minute;
-
-                @Column
-                private int amount;
-
-                <el-table-column prop="address" label="地址" :formatter="formatter">
-                </el-table-column>
+                <!--<el-table-column prop="address" label="地址" :formatter="formatter">-->
+                <!--</el-table-column>-->
                 <el-table-column label="操作" width="180">
                     <template slot-scope="scope">
                         <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -82,7 +60,6 @@
                 <el-form-item label="地址">
                     <el-input v-model="form.address"></el-input>
                 </el-form-item>
-
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editVisible = false">取 消</el-button>
@@ -119,7 +96,14 @@
                 form: {
                     name: '',
                     date: '',
-                    address: ''
+                    address: '',
+                    ticket_id:'',
+                    ticket_start:'',
+                    ticket_end:'',
+                    ticket_date:'',
+                    ticket_time_hour:'',
+                    ticket_time_minute:'',
+                    ticket_amount:''
                 },
                 idx: -1
             }
@@ -164,7 +148,23 @@
                     page: this.cur_page
                 }).then((res) => {
                     this.tableData = res.data.list;
-                })
+                    console.log("res.data.list:");
+                    console.log(res.data.list);
+
+                });
+                this.url = 'http://localhost:8080/ticket/query';
+                var res = this.$axios.get(this.url)
+                    .then(function (response) {
+                        console.log(response);
+                        console.log("data:");
+                        console.log(response);
+                        console.log("data.data:");
+                        console.log(response.data);
+                        this.tableData = response.data.data;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             },
             search() {
                 this.is_search = true;
