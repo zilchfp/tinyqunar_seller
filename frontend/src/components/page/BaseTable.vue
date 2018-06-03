@@ -19,22 +19,20 @@
                 <el-table-column type="selection" width="55"></el-table-column>
                 <el-table-column prop="date" label="日期" sortable width="150">
                 </el-table-column>
-                <el-table-column prop="ticket_id" label="机票ID" width="120">
+                <el-table-column prop="id" label="机票ID" width="120">
                 </el-table-column>
-                <el-table-column prop="ticket_start" label="起始时间" width="120">
+                <el-table-column prop="start" label="起始时间" width="120">
                 </el-table-column>
-                <el-table-column prop="ticket_end" label="到达时间" width="120">
+                <el-table-column prop="end" label="到达时间" width="120">
                 </el-table-column>
-                <el-table-column prop="ticket_date" label="日期" width="120">
+                <el-table-column prop="date" label="日期" width="120">
                 </el-table-column>
-                <el-table-column prop="ticket_time_hour" label="小时" width="120">
+                <el-table-column prop="time_hour" label="小时" width="120">
                 </el-table-column>
-                <el-table-column prop="ticket_time_minute" label="分钟" width="120">
+                <el-table-column prop="time_minute" label="分钟" width="120">
                 </el-table-column>
-                <el-table-column prop="ticket_amount" label="余量" width="120">
+                <el-table-column prop="amount" label="余量" width="120">
                 </el-table-column>
-                <!--<el-table-column prop="address" label="地址" :formatter="formatter">-->
-                <!--</el-table-column>-->
                 <el-table-column label="操作" width="180">
                     <template slot-scope="scope">
                         <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -81,7 +79,7 @@
 <script>
     export default {
         name: 'basetable',
-        data() {
+        data () {
             return {
                 url: './static/vuetable.json',
                 tableData: [],
@@ -103,7 +101,7 @@
                     ticket_date:'',
                     ticket_time_hour:'',
                     ticket_time_minute:'',
-                    ticket_amount:''
+                    ticket_amount:'1'
                 },
                 idx: -1
             }
@@ -114,6 +112,8 @@
         computed: {
             data() {
                 return this.tableData.filter((d) => {
+                    return d;  //不过滤
+
                     let is_del = false;
                     for (let i = 0; i < this.del_list.length; i++) {
                         if (d.name === this.del_list[i].name) {
@@ -140,31 +140,40 @@
             },
             // 获取 easy-mock 的模拟数据
             getData() {
-                // 开发环境使用 easy-mock 数据，正式环境使用 json 文件
+                // 开发环境使用 easy-mock 数据，正式环境使用 json  文件
                 if (process.env.NODE_ENV === 'development') {
                     this.url = '/ms/table/list';
+                    console.log("开发环境");
                 };
+                //原来的请求
+
+                this.url = 'http://localhost:8080/ticket/query';
                 this.$axios.post(this.url, {
                     page: this.cur_page
                 }).then((res) => {
-                    this.tableData = res.data.list;
+
+                    console.log("ori request: tableData");
+                    console.log(this.tableData);
+                    this.tableData = res.data;
+                    this.tableData.ticket_start = res.data.ticket_start;
+                    // this.tableData.resize
                     console.log("res.data.list:");
-                    console.log(res.data.list);
+                    console.log(res.data);
 
                 });
-                this.url = 'http://localhost:8080/ticket/query';
-                var res = this.$axios.get(this.url)
-                    .then(function (response) {
-                        console.log(response);
-                        console.log("data:");
-                        console.log(response);
-                        console.log("data.data:");
-                        console.log(response.data);
-                        this.tableData = response.data.data;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                //新的请求
+                // console.log("..........");
+                // this.url = 'http://localhost:8080/ticket/query';
+                // this.$axios.post(this.url)
+                //     .then(function (response) {
+                //         console.log("respose.data:");
+                //         console.log(response.data);
+                //         this.tableData = response.data;
+                //     })
+                //     .catch(function (error) {
+                //         console.log(error);
+                //     });
+
             },
             search() {
                 this.is_search = true;
@@ -181,7 +190,8 @@
                 this.form = {
                     name: item.name,
                     date: item.date,
-                    address: item.address
+                    address: item.address,
+                    ticket_amount: item.amount
                 }
                 this.editVisible = true;
             },
