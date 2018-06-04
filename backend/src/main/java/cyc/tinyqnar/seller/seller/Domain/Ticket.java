@@ -3,6 +3,7 @@ package cyc.tinyqnar.seller.seller.Domain;
 
 
 import lombok.Data;
+import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
 import java.sql.Time;

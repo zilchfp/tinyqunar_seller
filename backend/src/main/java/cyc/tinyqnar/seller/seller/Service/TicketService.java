@@ -26,6 +26,13 @@ public class TicketService {
         return ticketRepository.findAllByAmountGreaterThan(0);
     }
 
+    public int deleteById(int id) {
+        return ticketRepository.deleteById(id);
+    }
+
+    public Ticket updateTicket(Ticket ticket) {
+        return ticketRepository.save(ticket);
+    }
 
 
 }

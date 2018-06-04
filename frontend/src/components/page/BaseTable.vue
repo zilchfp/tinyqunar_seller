@@ -54,11 +54,26 @@
                 <el-form-item label="日期">
                     <el-date-picker type="date" placeholder="选择日期" v-model="form.date" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                 </el-form-item>
-                <el-form-item label="姓名">
-                    <el-input v-model="form.name"></el-input>
+                <el-form-item label="机票ID">
+                    <el-input v-model="form.id"></el-input>
                 </el-form-item>
-                <el-form-item label="地址">
-                    <el-input v-model="form.address"></el-input>
+                <el-form-item label="出发点">
+                    <el-input v-model="form.start"></el-input>
+                </el-form-item>
+                <el-form-item label="目的地">
+                    <el-input v-model="form.end"></el-input>
+                </el-form-item>
+                <el-form-item label="出发时间">
+                    <el-input v-model="form.start_time"></el-input>
+                </el-form-item>
+                <el-form-item label="小时">
+                    <el-input v-model="form.time_hour"></el-input>
+                </el-form-item>
+                <el-form-item label="分钟">
+                    <el-input v-model="form.time_minute"></el-input>
+                </el-form-item>
+                <el-form-item label="余量">
+                    <el-input v-model="form.amount"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -97,13 +112,12 @@
                     name: '',
                     date: '',
                     address: '',
-                    ticket_id:'',
-                    ticket_start:'',
-                    ticket_end:'',
-                    ticket_date:'',
-                    ticket_time_hour:'',
-                    ticket_time_minute:'',
-                    ticket_amount:'1'
+                    id:'',
+                    start:'',
+                    end:'',
+                    time_hour:'',
+                    time_minute:'',
+                    amount:'1'
                 },
                 idx: -1
             }
@@ -147,35 +161,18 @@
                     this.url = '/ms/table/list';
                     console.log("开发环境");
                 };
-                //原来的请求
-
+                //数据请求
                 this.url = 'http://localhost:8080/ticket/query';
                 this.$axios.post(this.url, {
                     page: this.cur_page
                 }).then((res) => {
-
                     console.log("ori request: tableData");
                     console.log(this.tableData);
                     this.tableData = res.data;
                     this.tableData.ticket_start = res.data.ticket_start;
-                    // this.tableData.resize
                     console.log("res.data.list:");
                     console.log(res.data);
-
                 });
-                //新的请求
-                // console.log("..........");
-                // this.url = 'http://localhost:8080/ticket/query';
-                // this.$axios.post(this.url)
-                //     .then(function (response) {
-                //         console.log("respose.data:");
-                //         console.log(response.data);
-                //         this.tableData = response.data;
-                //     })
-                //     .catch(function (error) {
-                //         console.log(error);
-                //     });
-
             },
             search() {
                 this.is_search = true;
@@ -193,7 +190,10 @@
                     name: item.name,
                     date: item.date,
                     address: item.address,
-                    ticket_amount: item.amount
+                    start_time: item.start_time,
+                    time_hour: item.time_hour,
+                    time_minute: item.time_minute,
+                    amount: item.amount,
                 }
                 this.editVisible = true;
             },

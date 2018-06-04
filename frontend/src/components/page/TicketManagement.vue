@@ -14,6 +14,7 @@
                 </el-select>
                 <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="search" @click="search">搜索</el-button>
+                <el-button type="primary" icon="addTicket" @click="addTicket">添加</el-button>
             </div>
             <el-table :data="data" border style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="55"></el-table-column>
@@ -23,7 +24,7 @@
                 </el-table-column>
                 <el-table-column prop="date" label="日期" width="120">
                 </el-table-column>
-                <el-table-column prop="start" label="出发点" width="120">
+                <el-table-column prop="start" label="出发地" width="120">
                 </el-table-column>
                 <el-table-column prop="end" label="目的地" width="120">
                 </el-table-column>
@@ -47,6 +48,39 @@
                 </el-pagination>
             </div>
         </div>
+        <!-- 添加票弹出框 -->
+        <el-dialog title="编辑" :visible.sync="addEditVisible" width="30%">
+            <el-form ref="form" :model="form" label-width="50px">
+                <el-form-item label="日期">
+                    <el-date-picker type="date" placeholder="选择日期" v-model="form.date" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
+                </el-form-item>
+                <el-form-item label="机票ID   ">
+                    <el-input v-model="form.id"></el-input>
+                </el-form-item>
+                <el-form-item label="出发地">
+                    <el-input v-model="form.start"></el-input>
+                </el-form-item>
+                <el-form-item label="目的地">
+                    <el-input v-model="form.end"></el-input>
+                </el-form-item>
+                <el-form-item label="出发时间">
+                    <el-input v-model="form.start_time"></el-input>
+                </el-form-item>
+                <el-form-item label="小时">
+                    <el-input v-model="form.time_hour"></el-input>
+                </el-form-item>
+                <el-form-item label="分钟">
+                    <el-input v-model="form.time_minute"></el-input>
+                </el-form-item>
+                <el-form-item label="余量">
+                    <el-input v-model="form.amount"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="addEditVisible = false">取 消</el-button>
+                <el-button type="primary" @click="saveAddEdit">确 定</el-button>
+            </span>
+        </el-dialog>
 
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
@@ -54,11 +88,26 @@
                 <el-form-item label="日期">
                     <el-date-picker type="date" placeholder="选择日期" v-model="form.date" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                 </el-form-item>
-                <el-form-item label="姓名">
-                    <el-input v-model="form.name"></el-input>
+                <el-form-item label="机票ID   ">
+                    <el-input v-model="form.id"></el-input>
                 </el-form-item>
-                <el-form-item label="地址">
-                    <el-input v-model="form.address"></el-input>
+                <el-form-item label="出发地">
+                    <el-input v-model="form.start"></el-input>
+                </el-form-item>
+                <el-form-item label="目的地">
+                    <el-input v-model="form.end"></el-input>
+                </el-form-item>
+                <el-form-item label="出发时间">
+                    <el-input v-model="form.start_time"></el-input>
+                </el-form-item>
+                <el-form-item label="小时">
+                    <el-input v-model="form.time_hour"></el-input>
+                </el-form-item>
+                <el-form-item label="分钟">
+                    <el-input v-model="form.time_minute"></el-input>
+                </el-form-item>
+                <el-form-item label="余量">
+                    <el-input v-model="form.amount"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -78,11 +127,13 @@
     </div>
 </template>
 
+
 <script>
     export default {
         name: 'basetable',
         data () {
             return {
+                baseurl:'http://localhost:8080',
                 url: './static/vuetable.json',
                 tableData: [],
                 cur_page: 1,
@@ -92,18 +143,17 @@
                 del_list: [],
                 is_search: false,
                 editVisible: false,
+                addEditVisible: false,
                 delVisible: false,
                 form: {
-                    name: '',
                     date: '',
-                    address: '',
-                    ticket_id:'',
-                    ticket_start:'',
-                    ticket_end:'',
-                    ticket_date:'',
-                    ticket_time_hour:'',
-                    ticket_time_minute:'',
-                    ticket_amount:'1'
+                    id:'',
+                    start:'',
+                    end:'',
+                    start_time:'',
+                    time_hour:'',
+                    time_minute:'',
+                    amount:''
                 },
                 idx: -1
             }
@@ -140,42 +190,13 @@
                 this.cur_page = val;
                 this.getData();
             },
-            // 获取 easy-mock 的模拟数据
             getData() {
-                // 开发环境使用 easy-mock 数据，正式环境使用 json  文件
-                if (process.env.NODE_ENV === 'development') {
-                    this.url = '/ms/table/list';
-                    console.log("开发环境");
-                };
-                //原来的请求
-
-                this.url = 'http://localhost:8080/ticket/query';
+                this.url = this.baseurl+ '/ticket/query';
                 this.$axios.post(this.url, {
                     page: this.cur_page
                 }).then((res) => {
-
-                    console.log("ori request: tableData");
-                    console.log(this.tableData);
                     this.tableData = res.data;
-                    this.tableData.ticket_start = res.data.ticket_start;
-                    // this.tableData.resize
-                    console.log("res.data.list:");
-                    console.log(res.data);
-
                 });
-                //新的请求
-                // console.log("..........");
-                // this.url = 'http://localhost:8080/ticket/query';
-                // this.$axios.post(this.url)
-                //     .then(function (response) {
-                //         console.log("respose.data:");
-                //         console.log(response.data);
-                //         this.tableData = response.data;
-                //     })
-                //     .catch(function (error) {
-                //         console.log(error);
-                //     });
-
             },
             search() {
                 this.is_search = true;
@@ -190,10 +211,15 @@
                 this.idx = index;
                 const item = this.tableData[index];
                 this.form = {
-                    name: item.name,
                     date: item.date,
                     address: item.address,
-                    ticket_amount: item.amount
+                    start_time: item.start_time,
+                    start: item.start,
+                    time_hour: item.time_hour,
+                    end: item.end,
+                    id: item.id,
+                    time_minute: item.time_minute,
+                    amount: item.amount,
                 }
                 this.editVisible = true;
             },
@@ -218,13 +244,73 @@
             saveEdit() {
                 this.$set(this.tableData, this.idx, this.form);
                 this.editVisible = false;
-                this.$message.success(`修改第 ${this.idx+1} 行成功`);
+                this.$axios({
+                    method: 'post',
+                    url:'http://localhost:8080/ticket/add',
+                    headers: { 'Content-type': 'application/json;charset=UTF-8' },
+                    data: JSON.stringify(this.form)
+                }).then((response) => {
+                    console.log("receive");
+                    console.log(response);
+                    this.getData();
+                    this.$message.success("添加成功!");
+                    this.addEditVisible = false;
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             },
             // 确定删除
             deleteRow(){
-                this.tableData.splice(this.idx, 1);
-                this.$message.success('删除成功');
+                //
                 this.delVisible = false;
+                console.log('this.idx:'+this.idx);
+                console.log('this.tableData[this.idx]:');
+                console.log();
+                this.$axios({
+                    method: 'post',
+                    url:'http://localhost:8080/ticket/delete',
+                    headers: { 'Content-type': 'application/json' },
+                    params: {
+                        id:this.tableData[this.idx].id,
+                    }
+                }).then((response) => {
+                        console.log(response);
+                        this.getData();
+                        this.$message.success("删除成功!");
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            //添加票
+            addTicket() {
+                this.addEditVisible = true;
+
+            },
+            //保存添加的票
+            saveAddEdit() {
+                this.$set(this.tableData, this.idx, this.form);
+                console.log('this.form');
+                console.log(this.form);
+                this.$axios({
+                    method: 'post',
+                    url:'http://localhost:8080/ticket/add',
+                    headers: { 'Content-type': 'application/json' },
+                    // data: {
+                    //     addTicket:this.form
+                    // }
+                    data: JSON.stringify(this.form)
+                    //data: this.form
+                }).then((response) => {
+                    console.log(response);
+                    this.getData();
+                    this.$message.success("添加成功!");
+                    this.addEditVisible = false;
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         }
     }

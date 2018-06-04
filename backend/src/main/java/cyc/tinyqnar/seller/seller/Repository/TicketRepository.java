@@ -21,7 +21,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     @Transactional
     int deleteById(int id);
 
-//    @Query("from User u where u.name=:name")
-//    User findUser(@Param("name") String name);
+
 
 }
