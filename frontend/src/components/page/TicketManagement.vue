@@ -7,18 +7,18 @@
         </div>
         <div class="container">
             <div class="handle-box">
-                <el-button type="primary" icon="delete" class="handle-del mr10" @click="delAll">批量删除</el-button>
-                <el-select v-model="select_cate" placeholder="筛选省份" class="handle-select mr10">
-                    <el-option key="1" label="广东省" value="广东省"></el-option>
-                    <el-option key="2" label="湖南省" value="湖南省"></el-option>
-                </el-select>
-                <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input mr10"></el-input>
-                <el-button type="primary" icon="search" @click="search">搜索</el-button>
-                <el-button type="primary" icon="addTicket" @click="addTicket">添加</el-button>
+                <!--<el-button type="primary" icon="delete" class="handle-del mr10" @click="delAll">批量删除</el-button>-->
+                <!--<el-select v-model="select_cate" placeholder="筛选省份" class="handle-select mr10">-->
+                    <!--<el-option key="1" label="广东省" value="广东省"></el-option>-->
+                    <!--<el-option key="2" label="湖南省" value="湖南省"></el-option>-->
+                <!--</el-select>-->
+                <!--<el-input v-model="select_word" placeholder="筛选关键词" class="handle-input mr10"></el-input>-->
+                <!--<el-button type="primary" icon="search" @click="search">搜索</el-button>-->
+                <el-button type="primary" icon="addTicket" @click="addTicket">添加机票</el-button>
             </div>
             <el-table :data="data" border style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="55"></el-table-column>
-                <el-table-column prop="date" label="日期" sortable width="150">
+                <!--<el-table-column type="selection" width="55"></el-table-column>-->
+                <el-table-column prop="date" label="日期" sortable width="120">
                 </el-table-column>
                 <el-table-column prop="id" label="机票ID" width="120">
                 </el-table-column>
@@ -34,6 +34,8 @@
                 </el-table-column>
                 <el-table-column prop="time_minute" label="分钟" width="60">
                 </el-table-column>
+                <el-table-column prop="price" label="价钱" width="120">
+                </el-table-column>
                 <el-table-column prop="amount" label="余量" width="120">
                 </el-table-column>
                 <el-table-column label="操作" width="180">
@@ -44,7 +46,7 @@
                 </el-table-column>
             </el-table>
             <div class="pagination">
-                <el-pagination @current-change="handleCurrentChange" layout="prev, pager, next" :total="1000">
+                <el-pagination @current-change="handleCurrentChange" layout="prev, pager, next" :total=tableData.length>
                 </el-pagination>
             </div>
         </div>
@@ -53,9 +55,6 @@
             <el-form ref="form" :model="form" label-width="50px">
                 <el-form-item label="日期">
                     <el-date-picker type="date" placeholder="选择日期" v-model="form.date" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
-                </el-form-item>
-                <el-form-item label="机票ID   ">
-                    <el-input v-model="form.id"></el-input>
                 </el-form-item>
                 <el-form-item label="出发地">
                     <el-input v-model="form.start"></el-input>
@@ -71,6 +70,9 @@
                 </el-form-item>
                 <el-form-item label="分钟">
                     <el-input v-model="form.time_minute"></el-input>
+                </el-form-item>
+                <el-form-item label="价钱">
+                    <el-input v-model="form.price"></el-input>
                 </el-form-item>
                 <el-form-item label="余量">
                     <el-input v-model="form.amount"></el-input>
@@ -105,6 +107,9 @@
                 </el-form-item>
                 <el-form-item label="分钟">
                     <el-input v-model="form.time_minute"></el-input>
+                </el-form-item>
+                <el-form-item label="价钱">
+                    <el-input v-model="form.price"></el-input>
                 </el-form-item>
                 <el-form-item label="余量">
                     <el-input v-model="form.amount"></el-input>
@@ -153,6 +158,7 @@
                     start_time:'',
                     time_hour:'',
                     time_minute:'',
+                    price:'',
                     amount:''
                 },
                 idx: -1
@@ -164,8 +170,8 @@
         computed: {
             data() {
                 return this.tableData.filter((d) => {
-                    return d;  //不过滤
 
+                    return d;  //不过滤
                     let is_del = false;
                     for (let i = 0; i < this.del_list.length; i++) {
                         if (d.name === this.del_list[i].name) {
@@ -219,8 +225,9 @@
                     end: item.end,
                     id: item.id,
                     time_minute: item.time_minute,
+                    price: item.price,
                     amount: item.amount,
-                }
+                };
                 this.editVisible = true;
             },
             handleDelete(index, row) {
@@ -253,7 +260,7 @@
                     console.log("receive");
                     console.log(response);
                     this.getData();
-                    this.$message.success("添加成功!");
+                    this.$message.success("修改成功!");
                     this.addEditVisible = false;
                 })
                     .catch(function (error) {
@@ -286,7 +293,6 @@
             //添加票
             addTicket() {
                 this.addEditVisible = true;
-
             },
             //保存添加的票
             saveAddEdit() {
@@ -297,11 +303,7 @@
                     method: 'post',
                     url:'http://localhost:8080/ticket/add',
                     headers: { 'Content-type': 'application/json' },
-                    // data: {
-                    //     addTicket:this.form
-                    // }
                     data: JSON.stringify(this.form)
-                    //data: this.form
                 }).then((response) => {
                     console.log(response);
                     this.getData();
