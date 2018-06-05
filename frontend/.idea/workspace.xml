@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="753faac5-6a30-4f76-b98a-962d27730375" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/page/TicketManagement.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/page/TicketManagement.vue" afterDir="false" />
-    </list>
+    <list default="true" id="753faac5-6a30-4f76-b98a-962d27730375" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -261,7 +258,7 @@
       <workItem from="1528023918869" duration="9072000" />
       <workItem from="1528039047520" duration="4079000" />
       <workItem from="1528117072499" duration="11351000" />
-      <workItem from="1528200848646" duration="1641000" />
+      <workItem from="1528200848646" duration="1920000" />
     </task>
     <task id="LOCAL-00001" summary="小改">
       <created>1527917557834</created>
@@ -274,11 +271,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36984000" />
+    <option name="totallyTimeSpent" value="37263000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="-11" width="1922" height="1029" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
