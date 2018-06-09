@@ -1,16 +1,16 @@
 package cyc.tinyqnar.seller.seller.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import cyc.tinyqnar.seller.seller.Domain.Ticket;
 import cyc.tinyqnar.seller.seller.Service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
 
-
+@EnableEurekaServer
 @RestController
 public class TicketController {
 
@@ -18,7 +18,7 @@ public class TicketController {
     private TicketService ticketService;
 
     @RequestMapping("/ticket/query")
-    public List<Ticket> OrderFind() {
+    public List<Ticket> RestTicketQuery() {
         List<Ticket> restTicketList = ticketService.findRestTickets();
         if (restTicketList == null) {
             System.out.println("null");

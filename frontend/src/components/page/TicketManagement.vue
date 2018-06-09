@@ -138,7 +138,7 @@
         name: 'basetable',
         data () {
             return {
-                baseurl:'http://localhost:8080',
+                baseurl:'http://localhost:10001',
                 url: './static/vuetable.json',
                 tableData: [],
                 cur_page: 1,
@@ -253,12 +253,10 @@
                 this.editVisible = false;
                 this.$axios({
                     method: 'post',
-                    url:'http://localhost:8080/ticket/add',
+                    url: this.baseurl + '/ticket/add',
                     headers: { 'Content-type': 'application/json;charset=UTF-8' },
                     data: JSON.stringify(this.form)
                 }).then((response) => {
-                    console.log("receive");
-                    console.log(response);
                     this.getData();
                     this.$message.success("修改成功!");
                     this.addEditVisible = false;
@@ -271,18 +269,14 @@
             deleteRow(){
                 //
                 this.delVisible = false;
-                console.log('this.idx:'+this.idx);
-                console.log('this.tableData[this.idx]:');
-                console.log();
                 this.$axios({
                     method: 'post',
-                    url:'http://localhost:8080/ticket/delete',
+                    url: this.baseurl + '/ticket/delete',
                     headers: { 'Content-type': 'application/json' },
                     params: {
                         id:this.tableData[this.idx].id,
                     }
-                }).then((response) => {
-                        console.log(response);
+                }).then(() => {
                         this.getData();
                         this.$message.success("删除成功!");
                     })
@@ -301,7 +295,7 @@
                 console.log(this.form);
                 this.$axios({
                     method: 'post',
-                    url:'http://localhost:8080/ticket/add',
+                    url: this.baseurl + '/ticket/add',
                     headers: { 'Content-type': 'application/json' },
                     data: JSON.stringify(this.form)
                 }).then((response) => {
@@ -309,8 +303,7 @@
                     this.getData();
                     this.$message.success("添加成功!");
                     this.addEditVisible = false;
-                })
-                    .catch(function (error) {
+                }).catch(function (error) {
                         console.log(error);
                     });
             }
