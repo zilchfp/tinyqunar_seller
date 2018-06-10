@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="753faac5-6a30-4f76-b98a-962d27730375" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/common/Header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/Header.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/common/Sidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/Sidebar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/page/Dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/page/Dashboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/page/OrderManagement.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/page/OrderManagement.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/page/Tabs.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/page/Tabs.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/page/TicketManagement.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/page/TicketManagement.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.js" afterDir="false" />
-    </list>
+    <list default="true" id="753faac5-6a30-4f76-b98a-962d27730375" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -23,7 +14,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TicketManagement.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TicketManagement.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/page/TicketManagement.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="198">
@@ -35,11 +26,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OrderManagement.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="OrderManagement.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/page/OrderManagement.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="208" column="34" lean-forward="true" selection-end-line="362" />
+            <state relative-caret-position="66">
+              <caret line="45" column="47" lean-forward="true" selection-start-line="45" selection-start-column="47" selection-end-line="45" selection-end-column="47" />
               <folding>
                 <element signature="n#style#0;n#el-table#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
@@ -250,7 +241,7 @@
       <workItem from="1528204005520" duration="29000" />
       <workItem from="1528382262049" duration="1529000" />
       <workItem from="1528517785734" duration="35000" />
-      <workItem from="1528614784647" duration="1997000" />
+      <workItem from="1528614784647" duration="2443000" />
     </task>
     <task id="LOCAL-00001" summary="小改">
       <created>1527917557834</created>
@@ -263,11 +254,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40853000" />
+    <option name="totallyTimeSpent" value="41299000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-7" width="1920" height="1024" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -615,20 +605,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/page/OrderManagement.vue">
+    <entry file="file://$PROJECT_DIR$/src/components/page/TicketManagement.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="208" column="34" lean-forward="true" selection-end-line="362" />
+        <state relative-caret-position="198">
+          <caret line="9" column="82" selection-start-line="9" selection-start-column="82" selection-end-line="9" selection-end-column="82" />
           <folding>
             <element signature="n#style#0;n#el-table#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/page/TicketManagement.vue">
+    <entry file="file://$PROJECT_DIR$/src/components/page/OrderManagement.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="82" selection-start-line="9" selection-start-column="82" selection-end-line="9" selection-end-column="82" />
+        <state relative-caret-position="66">
+          <caret line="45" column="47" lean-forward="true" selection-start-line="45" selection-start-column="47" selection-end-line="45" selection-end-column="47" />
           <folding>
             <element signature="n#style#0;n#el-table#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
           </folding>
