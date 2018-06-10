@@ -17,26 +17,57 @@ public class TicketController {
     @Autowired
     private TicketService ticketService;
 
-    @RequestMapping("/ticket/query")
-    public List<Ticket> RestTicketQuery() {
-        List<Ticket> restTicketList = ticketService.findRestTickets();
-        if (restTicketList == null) {
-            System.out.println("null");
-        }
-        return restTicketList;
-    }
-
-    @RequestMapping(value = "/ticket/delete", method = RequestMethod.POST)
-    public int TicketDelete(@RequestParam(value = "id")int id) {
-        System.out.println(id);
-        return ticketService.deleteById(id);
-    }
-
-
+    //增  加票
     @RequestMapping(value = "/ticket/add", method = {RequestMethod.POST, RequestMethod.GET})
-    public Ticket TicketEdit(@RequestBody String ticket) throws IOException {
+    public Ticket AddTicket(@RequestBody String ticket) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Ticket t = mapper.readValue(ticket, Ticket.class);
         return ticketService.updateTicket(t);
     }
+
+
+    //改 机票修改
+    //买票
+    @RequestMapping(value = "/ticket/buy", method = RequestMethod.POST)
+    public boolean BuyTicket(@RequestParam(value = "id")int ticketid) {
+        Ticket ticket = ticketService.findByTicketID(ticketid);
+        if (ticket.getAmount() == 0) {
+            return false;
+        }
+        int oriNum = ticket.getAmount();
+        ticket.setAmount(oriNum-1);
+        ticketService.updateTicket(ticket);
+        return true;
+    }
+
+    //删
+    @RequestMapping(value = "/ticket/delete", method = RequestMethod.POST)
+    public int TicketDelete(@RequestParam(value = "id")int id) {
+        return ticketService.deleteById(id);
+    }
+
+    //查
+    @RequestMapping("/ticket/query")
+    public List<Ticket> QueryTicketAvaliable() {
+        return ticketService.findAllAvaliable();
+    }
+
+    @RequestMapping(value = "/ticket/query/start", method = RequestMethod.POST)
+    public List<Ticket> QueryTicketByStart(@RequestParam(value = "search_start")String start) {
+        return ticketService.findAllByStart(start);
+    }
+
+    @RequestMapping(value = "/ticket/query/end", method = RequestMethod.POST)
+    public List<Ticket> QueryTicketByEnd(@RequestParam(value = "search_end")String end) {
+        return ticketService.findAllByEnd(end);
+    }
+
+    @RequestMapping(value = "/ticket/query/both", method = RequestMethod.POST)
+    public List<Ticket> QueryTicketBoth(@RequestParam(value = "search_start")String start,
+                                        @RequestParam(value = "search_end")String end) {
+        return ticketService.findAllByStartAndEnd(start, end);
+    }
+
+
+
 }

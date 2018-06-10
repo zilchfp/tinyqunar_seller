@@ -1,8 +1,8 @@
 package cyc.tinyqnar.seller.seller.Service;
 
 import cyc.tinyqnar.seller.seller.Domain.Order;
+import cyc.tinyqnar.seller.seller.Domain.Ticket;
 import cyc.tinyqnar.seller.seller.Repository.OrderRepository;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +16,10 @@ public class OrderService {
     public Order findByID(int id) {
         Order order = orderRepository.findByID(String.valueOf(id    ));
         return order;
+    }
 
+    public Order addOrderByTicket(Ticket ticket) {
+        Order order = new Order(ticket);
+        return orderRepository.save(order);
     }
 }

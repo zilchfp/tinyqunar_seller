@@ -39,12 +39,12 @@ export default new Router({
                     component: resolve => require(['../components/page/BaseTable.vue'], resolve),
                     meta: { title: '机票查询' }
                 },
-                {
-                    // vue-schart组件
-                    path: '/charts',
-                    component: resolve => require(['../components/page/BaseCharts.vue'], resolve),
-                    meta: { title: '票务统计' }
-                },
+                // {
+                //     // vue-schart组件
+                //     path: '/charts',
+                //     component: resolve => require(['../components/page/BaseCharts.vue'], resolve),
+                //     meta: { title: '票务统计' }
+                // },
                 {
                     // 权限页面
                     path: '/permission',

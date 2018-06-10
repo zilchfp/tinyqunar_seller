@@ -11,10 +11,14 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
 
     List<Ticket> findAllByStartAndEnd(String start, String end);
+    List<Ticket> findAllByStart(String start);
+    List<Ticket> findAllByEnd(String end);
 
     Ticket findById(int id);
 
     List<Ticket> findAllByAmountGreaterThan(int lowerBound);
+
+
 
 
 

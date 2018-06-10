@@ -7,14 +7,16 @@
         </div>
         <div class="container">
             <div class="handle-box">
+                <el-button type="primary" icon="addTicket" @click="addTicket">添加机票</el-button>
+
                 <!--<el-button type="primary" icon="delete" class="handle-del mr10" @click="delAll">批量删除</el-button>-->
                 <!--<el-select v-model="select_cate" placeholder="筛选省份" class="handle-select mr10">-->
-                    <!--<el-option key="1" label="广东省" value="广东省"></el-option>-->
-                    <!--<el-option key="2" label="湖南省" value="湖南省"></el-option>-->
+                <!--<el-option key="1" label="广东省" value="广东省"></el-option>-->
+                <!--<el-option key="2" label="湖南省" value="湖南省"></el-option>-->
                 <!--</el-select>-->
-                <!--<el-input v-model="select_word" placeholder="筛选关键词" class="handle-input mr10"></el-input>-->
-                <!--<el-button type="primary" icon="search" @click="search">搜索</el-button>-->
-                <el-button type="primary" icon="addTicket" @click="addTicket">添加机票</el-button>
+                <el-button type="primary" icon="search" @click="search">搜索</el-button>
+                <el-input v-model="search_start" placeholder="出发点" class="handle-input mr10"></el-input>
+                <el-input v-model="search_end" placeholder="目的地" class="handle-input mr10"></el-input>
             </div>
             <el-table :data="data" border style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange">
                 <!--<el-table-column type="selection" width="55"></el-table-column>-->
@@ -140,9 +142,12 @@
             return {
                 baseurl:'http://localhost:10001',
                 url: './static/vuetable.json',
+                targetUrl: '',
                 tableData: [],
                 cur_page: 1,
                 multipleSelection: [],
+                search_start: '',
+                search_end: '',
                 select_cate: '',
                 select_word: '',
                 del_list: [],
@@ -205,7 +210,34 @@
                 });
             },
             search() {
-                this.is_search = true;
+                this.targetUrl = this.baseurl+'/ticket/query';
+                if (this.search_start === '') {
+                    this.targetUrl = this.targetUrl + '/end';
+                } else if (this.search_end === '') {
+                    this.targetUrl = this.targetUrl + '/start';
+                } else {
+                    this.targetUrl = this.targetUrl + '/both';
+                }
+                this.$axios({
+                    method: 'post',
+                    url: this.targetUrl,
+                    headers: { 'Content-type': 'application/json' },
+                    params: {
+                        search_start: this.search_start,
+                        search_end: this.search_end
+                    }
+                }).then((response) => {
+                    console.log(response);
+                    this.tableData = response.data;
+                    // this.getData();
+                    this.$message.success("搜索成功!");
+                }).catch(function (error) {
+                    console.log(error);
+                });
+
+                this.search_start = '';
+                this.search_end = '';
+                this.targetUrl = this.baseurl;
             },
             formatter(row, column) {
                 return row.address;
@@ -267,7 +299,6 @@
             },
             // 确定删除
             deleteRow(){
-                //
                 this.delVisible = false;
                 this.$axios({
                     method: 'post',
@@ -277,12 +308,11 @@
                         id:this.tableData[this.idx].id,
                     }
                 }).then(() => {
-                        this.getData();
-                        this.$message.success("删除成功!");
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                    this.getData();
+                    this.$message.success("删除成功!");
+                }).catch(function (error) {
+                    console.log(error);
+                });
             },
             //添加票
             addTicket() {
@@ -304,8 +334,8 @@
                     this.$message.success("添加成功!");
                     this.addEditVisible = false;
                 }).catch(function (error) {
-                        console.log(error);
-                    });
+                    console.log(error);
+                });
             }
         }
     }
