@@ -19,26 +19,27 @@
                 <el-input v-model="search_end" placeholder="目的地" class="handle-input mr10"></el-input>
             </div>
             <el-table :data="data" border style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange">
-                <!--<el-table-column type="selection" width="55"></el-table-column>-->
-                <el-table-column prop="date" label="日期" sortable width="120">
+                <el-table-column prop="id" label="订单ID" width="80">
                 </el-table-column>
-                <el-table-column prop="id" label="机票ID" width="120">
-                </el-table-column>
-                <el-table-column prop="date" label="日期" width="120">
+                <el-table-column prop="ticket_id" label="机票ID" width="80">
                 </el-table-column>
                 <el-table-column prop="start" label="出发地" width="120">
                 </el-table-column>
                 <el-table-column prop="end" label="目的地" width="120">
                 </el-table-column>
-                <el-table-column prop="start_time" label="出发时间" width="120">
+                <el-table-column prop="date" label="出发日期" sortable width="120">
                 </el-table-column>
                 <el-table-column prop="time_hour" label="小时" width="60">
                 </el-table-column>
                 <el-table-column prop="time_minute" label="分钟" width="60">
                 </el-table-column>
-                <el-table-column prop="price" label="价钱" width="120">
+                <el-table-column prop="price" label="价钱" width="60">
                 </el-table-column>
-                <el-table-column prop="amount" label="余量" width="120">
+                <el-table-column prop="start_time" label="出发时间" width="120">
+                </el-table-column>
+                <el-table-column prop="deal_date" label="交易日期" sortable width="120">
+                </el-table-column>
+                <el-table-column prop="deal_time" label="交易时间" sortable width="120">
                 </el-table-column>
                 <el-table-column label="操作" width="180">
                     <template slot-scope="scope">
@@ -52,33 +53,19 @@
                 </el-pagination>
             </div>
         </div>
-        <!-- 添加票弹出框 -->
+        <!-- 添加订单弹出框 -->
         <el-dialog title="编辑" :visible.sync="addEditVisible" width="30%">
             <el-form ref="form" :model="form" label-width="50px">
-                <el-form-item label="日期">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.date" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
+                <el-form-item label="机票ID">
+                    <el-input v-model="form.ticketid"></el-input>
                 </el-form-item>
-                <el-form-item label="出发地">
-                    <el-input v-model="form.start"></el-input>
+                <el-form-item label="交易日期">
+                    <el-date-picker type="date" placeholder="日期" v-model="form.deal_date" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                 </el-form-item>
-                <el-form-item label="目的地">
-                    <el-input v-model="form.end"></el-input>
+                <el-form-item label="交易时间">
+                    <el-input v-model="form.deal_time"></el-input>
                 </el-form-item>
-                <el-form-item label="出发时间">
-                    <el-input v-model="form.start_time"></el-input>
-                </el-form-item>
-                <el-form-item label="小时">
-                    <el-input v-model="form.time_hour"></el-input>
-                </el-form-item>
-                <el-form-item label="分钟">
-                    <el-input v-model="form.time_minute"></el-input>
-                </el-form-item>
-                <el-form-item label="价钱">
-                    <el-input v-model="form.price"></el-input>
-                </el-form-item>
-                <el-form-item label="余量">
-                    <el-input v-model="form.amount"></el-input>
-                </el-form-item>
+
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="addEditVisible = false">取 消</el-button>
@@ -164,7 +151,10 @@
                     time_hour:'',
                     time_minute:'',
                     price:'',
-                    amount:''
+                    amount:'',
+                    ticketid:'',
+                    deal_date:'',
+                    deal_time:''
                 },
                 idx: -1
             }
@@ -285,7 +275,7 @@
                 this.editVisible = false;
                 this.$axios({
                     method: 'post',
-                    url: this.baseurl + '/ticket/add',
+                    url: this.baseurl + '/order/add',
                     headers: { 'Content-type': 'application/json;charset=UTF-8' },
                     data: JSON.stringify(this.form)
                 }).then((response) => {
@@ -302,7 +292,7 @@
                 this.delVisible = false;
                 this.$axios({
                     method: 'post',
-                    url: this.baseurl + '/ticket/delete',
+                    url: this.baseurl + '/order/delete',
                     headers: { 'Content-type': 'application/json' },
                     params: {
                         id:this.tableData[this.idx].id,
@@ -325,7 +315,7 @@
                 console.log(this.form);
                 this.$axios({
                     method: 'post',
-                    url: this.baseurl + '/ticket/add',
+                    url: this.baseurl + '/order/add',
                     headers: { 'Content-type': 'application/json' },
                     data: JSON.stringify(this.form)
                 }).then((response) => {

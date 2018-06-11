@@ -37,6 +37,7 @@ public class TicketController {
         int oriNum = ticket.getAmount();
         ticket.setAmount(oriNum-1);
         ticketService.updateTicket(ticket);
+
         return true;
     }
 

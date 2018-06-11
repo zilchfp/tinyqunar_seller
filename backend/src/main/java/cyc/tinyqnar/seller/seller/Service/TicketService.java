@@ -18,6 +18,12 @@ public class TicketService {
     public Ticket updateTicket(Ticket ticket) {
         return ticketRepository.save(ticket);
     }
+    public Ticket buyOneTicketById(int id) {
+        Ticket ticket = ticketRepository.findById(id);
+        int oriAmount = ticket.getAmount();
+        ticket.setAmount(oriAmount-1);
+        return ticketRepository.save(ticket);
+    }
 
     // 删
     public int deleteById(int id) {

@@ -65,10 +65,10 @@ public class Order {
     @Column
     private Time start_time;
 
-    @Column()
+    @Column
     private String deal_date;
 
-    @Column()
+    @Column
     private String deal_time;
 
 }
